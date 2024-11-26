@@ -1,0 +1,174 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>ADC | A Blog For Gwyn-S</title><meta name="author" content="Gwyn-S"><meta name="copyright" content="Gwyn-S"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="ADCADC可以由软件或者硬件触发，软件触发由ADC内部完成，硬件触发相对较复杂，除ADC外还涉及PWM，XTRG； 通用配置通用API 如下图，可以通过勾选某个Api选项，打开或关闭对应Api的功能，取消勾选则不参与代码编译，勾选对应的Api则会参与代码编译。每个API含义不做赘述，顾名思义即可；  ​​  参考电压请参考：SemiDrive_E3_MCAL_FUSA User Guide Re">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ADC">
+<meta property="og:url" content="http://gwyn-s.github.io/2024/11/26/TanshanLL/E31181910/ADC/index.html">
+<meta property="og:site_name" content="A Blog For Gwyn-S">
+<meta property="og:description" content="ADCADC可以由软件或者硬件触发，软件触发由ADC内部完成，硬件触发相对较复杂，除ADC外还涉及PWM，XTRG； 通用配置通用API 如下图，可以通过勾选某个Api选项，打开或关闭对应Api的功能，取消勾选则不参与代码编译，勾选对应的Api则会参与代码编译。每个API含义不做赘述，顾名思义即可；  ​​  参考电压请参考：SemiDrive_E3_MCAL_FUSA User Guide Re">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://gwyn-s.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2024-11-26T09:30:53.329Z">
+<meta property="article:modified_time" content="2024-11-26T09:33:23.480Z">
+<meta property="article:author" content="Gwyn-S">
+<meta property="article:tag" content="Gwyn-S,Blog">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://gwyn-s.github.io/img/butterfly-icon.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://gwyn-s.github.io/2024/11/26/TanshanLL/E31181910/ADC/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'ADC',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">A Blog For Gwyn-S</span></a><a class="nav-page-title" href="/"><span class="site-name">ADC</span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">ADC</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-11-26T09:30:53.329Z" title="发表于 2024-11-26 17:30:53">2024-11-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-11-26T09:33:23.480Z" title="更新于 2024-11-26 17:33:23">2024-11-26</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="ADC"><a href="#ADC" class="headerlink" title="ADC"></a>ADC</h1><p>ADC可以由软件或者硬件触发，软件触发由ADC内部完成，硬件触发相对较复杂，除ADC外还涉及PWM，XTRG；</p>
+<h1 id="通用配置"><a href="#通用配置" class="headerlink" title="通用配置"></a>通用配置</h1><h6 id="通用API"><a href="#通用API" class="headerlink" title="通用API"></a>通用API</h6><ul>
+<li>如下图，可以通过勾选某个Api选项，打开或关闭对应Api的功能，取消勾选则不参与代码编译，勾选对应的Api则会参与代码编译。每个API含义不做赘述，顾名思义即可；</li>
+</ul>
+<p>​<img src="/assets/image-20241111162038-q5kkx28.png" alt="image">​</p>
+<ul>
+<li><p>参考电压请参考：<a href="assets/SemiDrive_E3_MCAL_FUSA%20User%20Guide%20Rev%2000.05%20-20241111165440-22si6mt.docx">SemiDrive_E3_MCAL_FUSA User Guide Rev 00.05 .docx</a>该部分说明</p>
+</li>
+<li><p>AutoSar规范外功能</p>
+</li>
+</ul>
+<p>​<img src="/assets/image-20241111170850-euyoqq0.png" alt="image">​</p>
+<ul>
+<li><p>AdcEnableDmaTransferMode：如需要使用Dma来搬运Adc Group的转换值，请勾选该选项。</p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+AdcCCAByPass：Adc内部射随电路bypass</p>
+</li>
+</ul>
+<h1 id="HW"><a href="#HW" class="headerlink" title="HW"></a>HW</h1><p><span data-type="text" style="background-color: var(--b3-card-error-background); color: var(--b3-card-error-color);">硬件触发必须配置为每个AdcGroup的第一个Group，也就是Index0</span></p>
+<ul>
+<li>将AdcHwUnit –&gt; AdcHwUnit_0 –&gt; AdcGroup中的第一个AdcGroupTriggSrc调整为ADC_TRIGG_SRC_HW。</li>
+</ul>
+<p>​<img src="/assets/image-20241111160525-8nxgx3l.png" alt="image">​</p>
+<p>‍</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://Gwyn-S.github.io">Gwyn-S</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://gwyn-s.github.io/2024/11/26/TanshanLL/E31181910/ADC/">http://gwyn-s.github.io/2024/11/26/TanshanLL/E31181910/ADC/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://Gwyn-S.github.io" target="_blank">A Blog For Gwyn-S</a>！</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2024/11/26/Xuanwu/E3600M/" title=""><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2"></div></div><div class="info-2"><div class="info-item-1">E3600M‍ </div></div></div></a><a class="pagination-related" href="/2024/11/26/TanshanLL/E31181910/" title="E3118\19\10"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">E3118\19\10</div></div><div class="info-2"><div class="info-item-1">E3118\19\10参考文档：SemiDrive_E3_MCAL_FUSA User Guide Rev 00.05 .docx ‍ </div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Gwyn-S</div><div class="author-info-description">A Blog For Gwyn-S</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ADC"><span class="toc-number">1.</span> <span class="toc-text">ADC</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%80%9A%E7%94%A8%E9%85%8D%E7%BD%AE"><span class="toc-number">2.</span> <span class="toc-text">通用配置</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%80%9A%E7%94%A8API"><span class="toc-number">2.0.0.0.0.1.</span> <span class="toc-text">通用API</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HW"><span class="toc-number">3.</span> <span class="toc-text">HW</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/11/26/Xuanwu/E3600M/" title="无标题">无标题</a><time datetime="2024-11-26T09:30:53.398Z" title="发表于 2024-11-26 17:30:53">2024-11-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/11/26/TanshanLL/E31181910/ADC/" title="ADC">ADC</a><time datetime="2024-11-26T09:30:53.329Z" title="发表于 2024-11-26 17:30:53">2024-11-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/11/26/TanshanLL/E31181910/" title="E3118\19\10">E3118\19\10</a><time datetime="2024-11-26T09:30:52.981Z" title="发表于 2024-11-26 17:30:52">2024-11-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/11/26/TEST_CASE/" title="TEST_CASE">TEST_CASE</a><time datetime="2024-11-26T09:21:12.070Z" title="发表于 2024-11-26 17:21:12">2024-11-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/gerrit-experience-zqopen.html" title="Gerrit使用心得">Gerrit使用心得</a><time datetime="2024-11-22T10:39:48.000Z" title="发表于 2024-11-22 18:39:48">2024-11-22</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2024 By Gwyn-S</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
